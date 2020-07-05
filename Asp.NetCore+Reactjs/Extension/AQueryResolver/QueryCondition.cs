@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Asp.NetCore_Reactjs.Extension.AQueryResolver
 {
-    public class QueryCondition<T> 
+    public class QueryCondition<T>
     {
         public QueryCondition(QueryComparsion comparsion, T value)
         {

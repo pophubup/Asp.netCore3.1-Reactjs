@@ -10,7 +10,7 @@ namespace Asp.NetCore_Reactjs.Entity.Repositories.IRepository
         where T : class, new()
         where S : class, new()
     {
-        public IQueryable<T> GetData();
-        public IQueryable<T> GetData(S objs);
+        public  IQueryable<T> GetData();
+        public  IQueryable<T> GetData(S obj);
     }
 }
