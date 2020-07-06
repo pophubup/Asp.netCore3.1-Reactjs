@@ -15,47 +15,28 @@ namespace Asp.NetCore_Reactjs.Extension.AQueryResolver.EntityQueryResolvers
         }
         public override Expression<Func<Products, bool>> Resolve()
         {
-            if (!string.IsNullOrEmpty(this.QueryConditions.ProductId.Value) &&
-               this.QueryConditions.CategoryId.Value == 0 &&
-               string.IsNullOrEmpty(this.QueryConditions.ProductName.Value))
+            var data = this.QueryConditions.GetType().GetProperties();
+            foreach(var i in data)
             {
-                this.And(this.QueryConditions.ProductId, nameof(Products.ProductId));
-
+              
+                    if(i.Name == "ProductId" && !string.IsNullOrEmpty(this.QueryConditions.ProductId.Value))
+                    {
+                        this.And(this.QueryConditions.ProductId, nameof(Products.ProductId));
+                    }
+                    else if(i.Name == "ProductName" && !string.IsNullOrEmpty(this.QueryConditions.ProductName.Value))
+                    {
+                        this.And(this.QueryConditions.ProductName, nameof(Products.ProductName));
+                    }
+                    else if(i.Name == "CategoryId" && this.QueryConditions.CategoryId.Value != 0)
+                    {
+                        
+                        this.And(this.QueryConditions.CategoryId, nameof (Products.CategoryId));
+                        
+                    }
+                
+               
             }
-            else if (string.IsNullOrEmpty(this.QueryConditions.ProductId.Value) &&
-                     this.QueryConditions.CategoryId.Value != 0 &&
-                     string.IsNullOrEmpty(this.QueryConditions.ProductName.Value))
-            {
-                this.And(this.QueryConditions.CategoryId, nameof(Products.CategoryId));
-            }
-            else if (string.IsNullOrEmpty(this.QueryConditions.ProductId.Value) &&
-                     this.QueryConditions.CategoryId.Value == 0 &&
-                     !string.IsNullOrEmpty(this.QueryConditions.ProductName.Value))
-            {
-                this.And(this.QueryConditions.ProductName, nameof(Products.ProductName));
-            }
-            else if (!string.IsNullOrEmpty(this.QueryConditions.ProductId.Value) && this.QueryConditions.CategoryId.Value != 0 && !string.IsNullOrEmpty(this.QueryConditions.ProductName.Value))
-            {
-                this.And(this.QueryConditions.ProductId, nameof(Products.ProductId));
-                this.And(this.QueryConditions.CategoryId, nameof(Products.CategoryId));
-            }
-            else if (!string.IsNullOrEmpty(this.QueryConditions.ProductId.Value) && !string.IsNullOrEmpty(this.QueryConditions.ProductName.Value) && this.QueryConditions.CategoryId.Value == 0)
-            {
-                this.And(this.QueryConditions.ProductId, nameof(Products.ProductId));
-                this.And(this.QueryConditions.ProductName, nameof(Products.ProductName));
-            }
-            else if (this.QueryConditions.CategoryId.Value != 0 && !string.IsNullOrEmpty(this.QueryConditions.ProductName.Value) && string.IsNullOrEmpty(this.QueryConditions.ProductId.Value))
-            {
-                this.And(this.QueryConditions.CategoryId, nameof(Products.CategoryId));
-                this.And(this.QueryConditions.ProductName, nameof(Products.ProductName));
-            }
-            else if (!string.IsNullOrEmpty(this.QueryConditions.ProductName.Value) && !string.IsNullOrEmpty(this.QueryConditions.ProductId.Value) && this.QueryConditions.CategoryId.Value != 0)
-            {
-                this.And(this.QueryConditions.ProductId, nameof(Products.ProductId));
-                this.And(this.QueryConditions.CategoryId, nameof(Products.CategoryId));
-                this.And(this.QueryConditions.ProductName, nameof(Products.ProductName));
-            }
-
+           
             return this.GenerateLambdaExpression();
         }
     }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Asp.NetCore_Reactjs.Entity;
 using Asp.NetCore_Reactjs.Entity.Repositories;
 using Asp.NetCore_Reactjs.Entity.Repositories.IRepository;
+using Asp.NetCore_Reactjs.Entity.Services;
+using Asp.NetCore_Reactjs.Entity.Services.IServices;
+using Asp.NetCore_Reactjs.Extension.AQueryResolver.EntityQueryResolvers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -42,8 +45,9 @@ namespace Asp.NetCore_Reactjs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<ILoggerFactory, LoggerFactory>();
-            services.AddScoped<IGenericRepository<Products, Products>, ProductRepository>();
+            
+            services.AddScoped<IGenericRepository<Products>, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -52,6 +56,15 @@ namespace Asp.NetCore_Reactjs
             services.AddDbContext<Test2Context>(options =>
             {
                 options.UseLoggerFactory(ILoggerFactory).EnableSensitiveDataLogging().UseSqlServer("Server =.; Database = Test2; Trusted_Connection = True;");
+            });
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader();
+                    });
+
             });
             services.AddSpaStaticFiles(configuration =>
             {

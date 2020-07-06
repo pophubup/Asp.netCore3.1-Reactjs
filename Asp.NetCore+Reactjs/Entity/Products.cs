@@ -16,7 +16,7 @@ namespace Asp.NetCore_Reactjs.Entity
         public string ProductDescription { get; set; }
         public int? ProductQuantity { get; set; }
         public string ProductImage { get; set; }
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public virtual Categories Category { get; set; }
         public virtual ICollection<Transcations> Transcations { get; set; }
