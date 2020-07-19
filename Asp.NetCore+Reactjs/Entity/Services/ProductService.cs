@@ -13,9 +13,9 @@ namespace Asp.NetCore_Reactjs.Entity.Services
 {
     public class ProductService : IProductService
     {
-        private IGenericRepository<Products> _productRepository;
+        private IGenericRepository<Products, ProductQueryResolver, ProductQueryCondictions> _productRepository;
 
-        public ProductService(IGenericRepository<Products> productRepository)
+        public ProductService(IGenericRepository<Products, ProductQueryResolver,ProductQueryCondictions> productRepository)
         {
             _productRepository = productRepository;
         }
@@ -76,7 +76,7 @@ namespace Asp.NetCore_Reactjs.Entity.Services
                 CategoryId = new QueryCondition<int>(QueryComparsion.Equal, obj.CategoryId),
                 ProductName = new QueryCondition<string>(QueryComparsion.StartsWith, obj.ProductName != null ? obj.ProductName : null)
             };
-            ProductQueryResolvercs productQueryConditionsResolver = new ProductQueryResolvercs(productQueryConditions);
+            ProductQueryResolver productQueryConditionsResolver = new ProductQueryResolver(productQueryConditions);
             return _productRepository.GetData(productQueryConditionsResolver);
         }
     }

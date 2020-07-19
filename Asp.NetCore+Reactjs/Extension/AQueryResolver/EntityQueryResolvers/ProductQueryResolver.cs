@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Asp.NetCore_Reactjs.Extension.AQueryResolver.EntityQueryResolvers
 {
-    public class ProductQueryResolvercs : QueryResolver<Products, ProductQueryCondictions>
+    public class ProductQueryResolver : QueryResolver<Products, ProductQueryCondictions>
     {
-        public ProductQueryResolvercs(ProductQueryCondictions productQueryConditions)
+        public ProductQueryResolver(ProductQueryCondictions productQueryConditions)
          : base(productQueryConditions)
         {
         }

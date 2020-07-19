@@ -11,15 +11,9 @@ using System.Threading.Tasks;
 
 namespace Asp.NetCore_Reactjs.Entity.Repositories
 {
-    public class ProductRepository : IGenericRepository<Products>
+    public class ProductRepository : IGenericRepository<Products, ProductQueryResolver, ProductQueryCondictions>
     {
-        private readonly Test2Context _context;
-
-        public ProductRepository(Test2Context context)
-        {
-            _context = context;
-        }
-
+        private  Test2Context _context = new Test2Context();
         public List<Products> Add(List<Products> bulk_add)
         {
             _context.Products.AddRange(bulk_add);
@@ -43,7 +37,7 @@ namespace Asp.NetCore_Reactjs.Entity.Repositories
             return  _context.Products.Include(x => x.Category);
         }
 
-        public IQueryable<Products> GetData(ProductQueryResolvercs obj)
+        public IQueryable<Products> GetData(ProductQueryResolver obj)
         {
             return GetData().Where(obj.Resolve());
         }

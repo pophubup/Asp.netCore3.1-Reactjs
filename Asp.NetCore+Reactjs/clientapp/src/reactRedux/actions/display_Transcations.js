@@ -2,7 +2,7 @@
 
 const default_Transcation = () => {
     return async function (dispatch) {
-        const data = await axios.get('http://localhost:50424/api/Default/display_Transcations').then(res => {
+        const data = await axios.get('http://localhost:53321/api/Default/display_Transcations').then(res => {
             return res.data;
            
          })

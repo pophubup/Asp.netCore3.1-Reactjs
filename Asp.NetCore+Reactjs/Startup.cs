@@ -46,7 +46,7 @@ namespace Asp.NetCore_Reactjs
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddScoped<IGenericRepository<Products>, ProductRepository>();
+            services.AddScoped<IGenericRepository<Products, ProductQueryResolver, ProductQueryCondictions>, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(options =>
             {
