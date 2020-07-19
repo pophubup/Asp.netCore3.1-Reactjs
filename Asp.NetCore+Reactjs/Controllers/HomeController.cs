@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Asp.NetCore_Reactjs.Entity;
 using Asp.NetCore_Reactjs.Entity.Repositories.IRepository;
 using Asp.NetCore_Reactjs.Entity.Services.IServices;
+using Asp.NetCore_Reactjs.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,33 +14,51 @@ namespace Asp.NetCore_Reactjs.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [EnableCors]
     public class HomeController : ControllerBase
-    {
+    {  
+        private IProductService _IProduct;
+        private ICategoryServicecs _ICategories;
+        private ITranscationService _ITranscation;
 
-        private IProductService _productService;
-        public HomeController(IProductService productService)
+        public HomeController(IProductService product, ICategoryServicecs categories, ITranscationService transcation)
         {
-            _productService = productService;
+            _IProduct = product;
+            _ICategories = categories;
+            _ITranscation = transcation;
         }
-
         [HttpGet]
-        [EnableCors]
         public IEnumerable<Products> Index()
         {
-            return _productService.GetData().AsEnumerable();
+
+            return _IProduct.GetData().AsEnumerable();
         }
         [HttpPost]
-        [EnableCors]
-        public IEnumerable<Products> Index(Products products)
-        {
-            return _productService.GetData(products).AsEnumerable();
-        }
-        [HttpPost]
-        [EnableCors]
         public List<string> AddorEdit_Products(List<Products> Input_products)
         {
-            List<string> result = _productService.AddorEdit_Products(Input_products);
+            List<string> result = _IProduct.AddorEdit_Products(Input_products);
             return result;
+        }
+        [HttpGet]
+        public IEnumerable<Categories> GetCategories()
+        {
+            return _ICategories.GetCategories().AsEnumerable();
+        }
+        [HttpPost]
+        public List<string> AddorEdit_Categories(List<Categories> categories)
+        {
+            List<string> result = _ICategories.AddorEdit_Categories(categories);
+            return result;
+        }
+        [HttpPost]
+        public TranscationViewModel Add_Transcation_Test([FromBody] List<PostProducts> _Products)
+        {
+            return _ITranscation.Add_Transcation_Test(_Products);
+        }
+        [HttpGet]
+        public IEnumerable<Transcations> display_Transcations()
+        {
+            return _ITranscation.Count_AllTranscation();
         }
     }
 }

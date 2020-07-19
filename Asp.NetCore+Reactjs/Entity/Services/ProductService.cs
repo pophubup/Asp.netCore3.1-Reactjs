@@ -68,8 +68,6 @@ namespace Asp.NetCore_Reactjs.Entity.Services
 
         public IQueryable<Products> GetData(Products obj)
         {
-            IQueryable<Products> datalist = GetData();
-
             ProductQueryCondictions productQueryConditions = new ProductQueryCondictions()
             {
                 ProductId = new QueryCondition<string>(QueryComparsion.Equal, obj.ProductId != null ? obj.ProductId : null),

@@ -47,7 +47,11 @@ namespace Asp.NetCore_Reactjs
         {
             
             services.AddScoped<IGenericRepository<Products, ProductQueryResolver, ProductQueryCondictions>, ProductRepository>();
+            services.AddScoped<IGenericRepository<Categories, CategoryQueryResolver, CategoryQueryCondictions>, CategoryRepository>();
+            services.AddScoped<IGenericRepository<Transcations, TranscationResolver, TranscationQueryCondictions>, TranscationRespository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryServicecs, CategoryService>();
+            services.AddScoped<ITranscationService, TranscationService>();
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
