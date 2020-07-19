@@ -68,7 +68,7 @@ namespace Asp.NetCore_Reactjs
             });
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "myshoppingcart/build";
+                configuration.RootPath = "clientapp/build";
             });
         }
 
@@ -82,7 +82,7 @@ namespace Asp.NetCore_Reactjs
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "myshoppingcart");
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "clientapp");
 
                 if (env.IsDevelopment())
                 {

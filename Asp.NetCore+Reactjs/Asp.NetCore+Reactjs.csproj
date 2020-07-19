@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="myshoppingcart\**" />
+    <Content Remove="myshoppingcart\**" />
+    <EmbeddedResource Remove="myshoppingcart\**" />
+    <None Remove="myshoppingcart\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.5" />
