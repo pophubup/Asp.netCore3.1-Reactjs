@@ -2,7 +2,7 @@
 
 const default_CategoryAction = () => {
     return function (dispatch) {
-        return axios.get('http://localhost:53321/api/Default/GetCategories').then(res => {
+        return axios.get('http://localhost:5000/api/Home/GetCategories').then(res => {
             dispatch({
                 type: "DEFAULT_CATEGORY",
                 payload: res.data

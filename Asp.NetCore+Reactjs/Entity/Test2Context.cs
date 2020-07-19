@@ -1,11 +1,20 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 
 namespace Asp.NetCore_Reactjs.Entity
 {
     public partial class Test2Context : DbContext
     {
+        private ILoggerFactory ILoggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder
+             .AddFilter((category, level) =>
+                 category == DbLoggerCategory.Database.Command.Name
+                 && level == LogLevel.Information)
+             .AddConsole();
+        });
         public Test2Context()
         {
         }
@@ -13,6 +22,7 @@ namespace Asp.NetCore_Reactjs.Entity
         public Test2Context(DbContextOptions<Test2Context> options)
             : base(options)
         {
+           
         }
 
         public virtual DbSet<Categories> Categories { get; set; }
@@ -21,7 +31,11 @@ namespace Asp.NetCore_Reactjs.Entity
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseLoggerFactory(ILoggerFactory).EnableSensitiveDataLogging().UseSqlServer("Server=.;Database=Test2;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

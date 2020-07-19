@@ -71,7 +71,7 @@ const App = () => {
         transcations.map(item => {
            return arr.push(new PostProducts(item.productId, item.productName, item.productPrice, item.productDescription, item.productQuantity, item.productImage, item.categoryId ))
         })
-        const result = await fetch('http://localhost:53321/api/Default/Add_Transcation_Test', { headers: { 'Content-Type': 'application/json' }, method: "POST", body: JSON.stringify(arr) })
+        const result = await fetch('http://localhost:5000/api/Home/Add_Transcation_Test', { headers: { 'Content-Type': 'application/json' }, method: "POST", body: JSON.stringify(arr) })
         const result2 = JSON.parse(JSON.stringify(await result.json()))
         return result2;
     }

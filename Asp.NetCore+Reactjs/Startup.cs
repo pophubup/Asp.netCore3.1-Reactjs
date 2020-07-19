@@ -28,19 +28,11 @@ namespace Asp.NetCore_Reactjs
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ILoggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder
-                 .AddFilter((category, level) =>
-                     category == DbLoggerCategory.Database.Command.Name
-                     && level == LogLevel.Information)
-                 .AddConsole();
-            });
 
 
         }
         public IConfiguration Configuration { get; }
-        public ILoggerFactory ILoggerFactory { get; }
+    
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -52,14 +44,9 @@ namespace Asp.NetCore_Reactjs
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryServicecs, CategoryService>();
             services.AddScoped<ITranscationService, TranscationService>();
-            services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(options =>
+            services.AddControllers(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
-          
-            services.AddDbContext<Test2Context>(options =>
-            {
-                options.UseLoggerFactory(ILoggerFactory).EnableSensitiveDataLogging().UseSqlServer("Server =.; Database = Test2; Trusted_Connection = True;");
             });
             services.AddCors(options =>
             {
