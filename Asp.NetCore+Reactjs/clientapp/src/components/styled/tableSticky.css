@@ -1,0 +1,20 @@
+﻿td,th{
+   cursor:pointer
+}
+.wrapper {
+    position: relative;
+    overflow: auto;
+    height: 430px;
+    margin: auto;
+}
+    .wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: auto;
+    }
+.thsticky {
+    position: sticky;
+    top: -5px;
+    z-index: 1;
+    background: white
+}

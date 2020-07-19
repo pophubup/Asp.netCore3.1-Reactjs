@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="clientapp\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
