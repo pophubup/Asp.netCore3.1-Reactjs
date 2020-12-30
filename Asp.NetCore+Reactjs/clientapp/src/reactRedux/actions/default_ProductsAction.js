@@ -2,7 +2,7 @@
 
 const default_ProductAction = () => {
     return function (dispatch) {
-        return axios.get('http://localhost:5000/api/Home/Index').then(res => {
+        return axios.get('https://restwebapigroup.azurewebsites.net/api/Product/GetProducts').then(res => {
             dispatch({
                 type: "DEFAULT_PRODUCTS",
                 payload: res.data

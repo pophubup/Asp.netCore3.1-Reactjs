@@ -17,7 +17,7 @@ const productReducer = (state = initalState, action) => {
             
             return {
                 ...state,
-                products: state.products.filter(x => x.productId !== action.payload[0].productId)
+                products: state.products.filter(x => x.productID !== action.payload[0].productID)
             }
       
         case "CHECKOUT_PRODUCTS":
@@ -33,14 +33,15 @@ const productReducer = (state = initalState, action) => {
         case "EDIT_QTY_PRODUCT":
             
             let index = state.chekout_Product.findIndex(function (item) {
-                return item.productId === action.payload.productId
+                return item.productID === action.payload.productID
             })
             let afterupdate = state.chekout_Product.filter(function (item) {
-                if (item.productId === action.payload.productId) {
-                    item.productQuantity = action.payload.productQuantity
+                if (item.productID === action.payload.productID) {
+                    item.quantity = action.payload.quantity
                 }
-                return item.productId === action.payload.productId
+                return item.productID === action.payload.productID
             });
+            console.log(index,afterupdate)
             const updateState = [
                 ...state.chekout_Product.slice(0, index),
                 afterupdate[0],
@@ -53,7 +54,7 @@ const productReducer = (state = initalState, action) => {
         case 'DELETE_CHECKOUTLIST':
             return {
                 ...state,
-                chekout_Product: state.chekout_Product.filter(item => item.productId !== action.payload.productId),
+                chekout_Product: state.chekout_Product.filter(item => item.productID !== action.payload.productID),
                 products: state.products.concat(action.payload)
             }
         case "DEFAULT_TRANSCATIONS":

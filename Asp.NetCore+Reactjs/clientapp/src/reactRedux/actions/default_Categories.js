@@ -2,7 +2,7 @@
 
 const default_CategoryAction = () => {
     return function (dispatch) {
-        return axios.get('http://localhost:5000/api/Home/GetCategories').then(res => {
+        return axios.get('https://restwebapigroup.azurewebsites.net/api/Product/GetAllCategory').then(res => {
             dispatch({
                 type: "DEFAULT_CATEGORY",
                 payload: res.data

@@ -17,10 +17,11 @@ const App = () => {
     }, [dispatch, after_update.length]); 
     
     const Buy_Product = (obj) => {
-        dispatch(allActions.buyAction.buy_ProductAction( obj ))
-        dispatch(allActions.checkoutAction.checkout_products( obj ))
-     
+         dispatch(allActions.buyAction.buy_ProductAction( obj ))
+         dispatch(allActions.checkoutAction.checkout_products( obj ))
+       
     }
+   
     return (
         <Row>
                 {
@@ -33,12 +34,12 @@ const App = () => {
                                 <Col xs="auto" lg="auto" md="auto" style={{ margin: "10px" }} key={index}>
 
                                     <Card style={{ width: '300px' }}>
-                                        <Card.Img variant="top" style={{ height: "150px" }} src={item.productImage} />
+                                        <Card.Img variant="top" style={{ height: "150px" }} src={item.productImagePath} />
                                         <Card.Body>
                                             <Card.Title>{item.productName}</Card.Title>
                                             <Row>
                                                 <Col sm="auto" lg="auto" md="auto"><Card.Text> Price : $ {item.productPrice}</Card.Text></Col>
-                                                <Col sm="auto" lg="auto" md="auto"><Card.Text> Category : {item.categoryId}  </Card.Text></Col>
+                                                <Col sm="auto" lg="auto" md="auto"><Card.Text> Category : {item.categoryID}  </Card.Text></Col>
                                                 <Col sm="auto" lg="auto" md="auto"><Card.Text> Description :  {item.productDescription}  </Card.Text></Col>
                                             </Row>
                                            
@@ -46,7 +47,7 @@ const App = () => {
                                         <Card.Footer>
                                             <Row>
                                                 <Col sm="auto" style={{ left: "170px" }}>
-                                                    <Button variant="primary" id={item.productId} onClick={(e) => Buy_Product(data.filter(x => x.productId === e.target.id))} >Purchase</Button>
+                                                    <Button variant="primary" id={item.productID} onClick={(e) => Buy_Product(data.filter(x => x.productID === e.target.id))} >Purchase</Button>
                                                 </Col>
                                             </Row>
                                            

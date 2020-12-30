@@ -63,28 +63,30 @@ const App = () => {
         }
     }
     const onChagneQTY = (val, productId) => {
-        dispatch(allActions.editQtyAction.edit_qty_product({ productId: productId, productQuantity: val }))
-        
+         dispatch(allActions.editQtyAction.edit_qty_product({ productID: productId, quantity: val }))
+        console.log(val, productId)
     }
-    async function postData2() {
+    async function postData2(data) {
         var arr = [];
-        transcations.map(item => {
-           return arr.push(new PostProducts(item.productId, item.productName, item.productPrice, item.productDescription, item.productQuantity, item.productImage, item.categoryId ))
-        })
-        const result = await fetch('http://localhost:5000/api/Home/Add_Transcation_Test', { headers: { 'Content-Type': 'application/json' }, method: "POST", body: JSON.stringify(arr) })
-        const result2 = JSON.parse(JSON.stringify(await result.json()))
-        return result2;
+        // transcations.map(item => {
+        //    return arr.push(new PostProducts(item.productID, item.productName, item.productPrice, item.productDescription, item.quantity, item.productImagePath, item.categoryID ))
+        // })
+        console.log(transcations)
+        // const result = await fetch('http://localhost:5000/api/Home/Add_Transcation_Test', { headers: { 'Content-Type': 'application/json' }, method: "POST", body: JSON.stringify(arr) })
+        // const result2 = JSON.parse(JSON.stringify(await result.json()))
+        return transcations;
     }
-    const onClick_submitOrder = async () => {
-        var data = await postData2(); 
-        dispatch(allActions.defaultAction.default_ProductAction())
-        dispatch(allActions.restCheckOutProducts.reset_products())
+    const onClick_submitOrder = async (data) => {
+        console.log(data)
+        var data = await postData2(data); 
+       // dispatch(allActions.defaultAction.default_ProductAction())
+        //dispatch(allActions.restCheckOutProducts.reset_products())
         var text = '';
-        data.resultMsg.map(msg => {
-            return text += msg +'\n'
-        })
-        alert(text)
-        window.open(`${data.lineResponseModel.info.paymentUrl.web}`);
+        // data.resultMsg.map(msg => {
+        //     return text += msg +'\n'
+        // })
+        //alert(text)
+       // window.open(`${data.lineResponseModel.info.paymentUrl.web}`);
     }
     const onClick_DeleteProduct = (product) => {
 
@@ -96,7 +98,7 @@ const App = () => {
             <Row>
                 <Pagination pageNumbers={pageNumbers} activePage={activePage} paginate={paginate}></Pagination>
                 <Col xs={4} md={4} lg={4} style={{ left: "110px" }}>
-                    <Button type="submit" variant="primary" onClick={() => { onClick_submitOrder()}} >Check Out!!</Button>
+                    <Button type="submit" variant="primary" onClick={() => { onClick_submitOrder(currentPosts)}} >Check Out!!</Button>
                 </Col>
             </Row>
            
